@@ -1,0 +1,79 @@
+10
+
+dir
+357
+svn+ssh://ggb9189@linus.se.rit.edu/home/teams/361/s361-02e/svn/SEproject/trunk/.metadata/.plugins
+svn+ssh://ggb9189@linus.se.rit.edu/home/teams/361/s361-02e/svn
+
+
+
+2013-04-07T01:09:43.823599Z
+76
+dxs3203
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+54b3298e-973e-4def-beab-ae49b11c6df7
+
+com.collabnet.subversion.merge
+dir
+
+org.eclipse.core.resources
+dir
+
+org.eclipse.core.runtime
+dir
+
+org.eclipse.debug.core
+dir
+
+org.eclipse.debug.ui
+dir
+
+org.eclipse.dltk.core
+dir
+
+org.eclipse.dltk.core.index.sql.h2
+dir
+
+org.eclipse.dltk.ui
+dir
+
+org.eclipse.jdt.core
+dir
+
+org.eclipse.jdt.ui
+dir
+
+org.eclipse.mylyn.tasks.ui
+dir
+
+org.eclipse.mylyn.trac.core
+dir
+
+org.eclipse.team.cvs.core
+dir
+
+org.eclipse.ui.intro
+dir
+
+org.eclipse.ui.workbench
+dir
+
+org.tigris.subversion.subclipse.core
+dir
+
+org.tigris.subversion.subclipse.ui
+dir
+

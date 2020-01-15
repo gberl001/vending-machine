@@ -1,0 +1,140 @@
+package view.gui.customer;
+import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
+import view.gui.inventory.VendingMachineView;
+
+import model.VendingMachine;
+
+import control.Controller;
+/**
+ * A class used to display the Customer GUI
+ * 
+ * @author dxs3203
+ */
+
+@SuppressWarnings("serial")
+public class CustomerViewGUI extends JFrame implements MouseListener{
+	private Controller controller;
+	private VendingMachine model;
+	private CustomerCardPanel cp;
+	
+	@SuppressWarnings("unused")
+	private VendingMachineView vmView;
+	
+	public CustomerViewGUI(Controller controller){
+		super("Customer View");
+		this.controller = controller;
+		initComponents();
+	}
+	
+	public void initComponents(){
+		cp = new CustomerCardPanel(controller, model);
+		this.add(cp);
+		
+		KeyStroke escStroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
+		Action selectVMAction = new AbstractAction("ESCAPE") {
+			@Override
+			public void actionPerformed(ActionEvent e) {			
+				    ((CardLayout)(cp.getLayout())).show(
+				    		cp, CustomerCardPanel.CUSTOMER_PANEL_CARD);		   
+			}
+		};
+		cp.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(
+				escStroke, Action.NAME);
+		cp.getInputMap(JComponent.WHEN_FOCUSED).put(escStroke, Action.NAME);
+		cp.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+				escStroke, Action.NAME);
+		cp.getActionMap().put(Action.NAME, selectVMAction);
+		
+		cp.machineList.addMouseListener(this);
+	}
+	private static void createAndShowGUI() {
+		Controller controller = new Controller();
+		JFrame frame = new CustomerViewGUI(controller);
+		
+		// Get the current screen's size
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+		
+		// Compute and set the location so the frame is centered
+		int x = (screen.width/2-frame.getSize().width/2) - 275;
+		int y = (screen.height/2-frame.getSize().height/2) - 300;
+		frame.setLocation(x, y);
+
+		frame.setSize(550, 600);
+		frame.setResizable(false);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    frame.setVisible(true);
+	}
+	
+	public static void main(String args[]){
+		
+		//set look and feel
+		try {
+            for (UIManager.LookAndFeelInfo info : 
+            	 UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            // Will be set to default LAF
+        } 
+		
+		if (!System.getProperty("java.version").startsWith("1.7")) {
+			JOptionPane.showMessageDialog(null, "Please download Java version 7", "Error", JOptionPane.ERROR_MESSAGE, null);
+			System.exit(0);
+		}
+		
+		Runnable doCreateAndShowGUI = new Runnable() {
+            @Override
+			public void run() {
+                createAndShowGUI();
+            }
+         };
+	     SwingUtilities.invokeLater(doCreateAndShowGUI);
+	}
+
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		int index = cp.machineList.getSelectedRow();
+		if(index != -1){	
+			model = controller.findVendingMachine(
+					(String)cp.machineList.getValueAt(index, 1));
+			cp.setCustPanelModel(model);
+			vmView = new VendingMachineView(this, model, controller);
+			
+			((CardLayout)(cp.getLayout())).show(
+					cp, CustomerCardPanel.MACHINE_CARD);
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) { }
+
+	@Override
+	public void mouseReleased(MouseEvent e) { }
+
+	@Override
+	public void mouseEntered(MouseEvent e) { }
+
+	@Override
+	public void mouseExited(MouseEvent e) { }
+}
+

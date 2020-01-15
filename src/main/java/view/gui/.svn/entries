@@ -1,0 +1,40 @@
+10
+
+dir
+357
+svn+ssh://ggb9189@linus.se.rit.edu/home/teams/361/s361-02e/svn/SEproject/trunk/src/java/view/gui
+svn+ssh://ggb9189@linus.se.rit.edu/home/teams/361/s361-02e/svn
+
+
+
+2013-05-07T19:02:11.460935Z
+355
+rrc9704
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+54b3298e-973e-4def-beab-ae49b11c6df7
+
+customer
+dir
+
+inventory
+dir
+
+manager
+dir
+
+restocker
+dir
+
